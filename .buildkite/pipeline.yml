@@ -31,3 +31,47 @@ steps:
 
   - label: "Deploying to stg"
     command: echo "Deploying to stg!"
+
+  - block: ":shipit: Release to canary"
+    branches: "pay2release"
+
+  - input: "Release ticket"
+    fields:
+      - text: "Jira ticket"
+        key: "jira-ticket"
+
+  - label: "Deploying to canary"
+    command: echo "Deploying to canary!"
+
+  - wait: ~
+    continue_on_failure: false
+
+  - label: "Run Integration test"
+    command: echo "Run test!"
+
+  - label: "Bake time in Canary"
+    command: sleep 1m
+
+  - wait
+
+  - label: "Check the metric"
+    command: echo "Check metric"
+
+  - block: ":shipit: Release to Prod"
+    branches: "pay2release"
+
+  - input: "Release ticket"
+    fields:
+      - text: "Jira ticket"
+        key: "jira-ticket"
+
+  - label: "Deploying to Prod"
+    command: echo "Deploying to prod!"
+
+  - label: "Bake time in Prod"
+    command: sleep 1m
+
+  - wait
+
+  - label: "Check the metric"
+    command: echo "Check metric"
