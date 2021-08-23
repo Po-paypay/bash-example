@@ -19,10 +19,15 @@ steps:
 
   - block: ":shipit: Release to dev"
     branches: "master"
-    command: echo "Release to dev!"
+    
+
+  - label: "Deploying to dev"
+    command: echo "Deploying to dev!"
 
   - wait
 
   - block: ":shipit: Release to stg"
     branches: "master"
-    command: echo "Release to stg!"
+
+  - label: "Deploying to stg"
+    command: echo "Deploying to stg!"
