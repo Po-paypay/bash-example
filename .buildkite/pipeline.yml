@@ -1,8 +1,28 @@
 steps:
-  - label: ":hammer: Build images"
+  - label: ":package: Build images"
     command: "script.sh"
     artifact_paths: "artifacts/*"
     agents:
       queue: "${BUILDKITE_AGENT_META_DATA_QUEUE:-default}"
+
+  - wait: ~
+    continue_on_failure: false
+
   - label: "Run unit test"
     command: echo "Run test!"
+
+  - label: "Run functional test"
+    command: echo "Run functional test!"
+
+  - wait: ~
+    continue_on_failure: false
+
+  - block: ":shipit: Release to dev"
+    branches: "master"
+    command: echo "Release to dev!"
+
+  - wait
+
+  - block: ":shipit: Release to stg"
+    branches: "master"
+    command: echo "Release to stg!"
