@@ -46,6 +46,7 @@ steps:
     command: echo "Deploying to canary!"
 
   - wait: ~
+    branches: "pay2release"
     continue_on_failure: false
 
   - label: "Run Integration test"
@@ -57,6 +58,7 @@ steps:
     command: sleep 1m
 
   - wait
+    branches: "pay2release"
 
   - label: "Check the metric"
     branches: "pay2release"
@@ -81,6 +83,7 @@ steps:
     command: sleep 1m
 
   - wait
+    branches: "pay2release"
 
   - label: "Check the metric"
     branches: "pay2release"
