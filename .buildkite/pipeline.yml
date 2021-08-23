@@ -1,6 +1,8 @@
 steps:
-  - label: ":hammer: Example Script"
+  - label: ":hammer: Build images"
     command: "script.sh"
     artifact_paths: "artifacts/*"
     agents:
       queue: "${BUILDKITE_AGENT_META_DATA_QUEUE:-default}"
+  - label: "Run unit test"
+    command: echo "Run test!"
