@@ -90,4 +90,5 @@ steps:
     branches: "pay2release"
 
   - label: ":skull_and_crossbones: Prod rollback"
+    branches: "pay2release"
     command: echo "Prod rollback!"
