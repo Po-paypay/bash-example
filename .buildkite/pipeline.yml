@@ -52,7 +52,7 @@ steps:
     branches: "pay2release"
     command: echo "Run test!"
 
-  - label: ":cook: Bake time in Canary"
+  - label: ":alarm_clock: Bake time in Canary"
     branches: "pay2release"
     command: sleep 1m
 
@@ -76,7 +76,7 @@ steps:
     branches: "pay2release"
     command: echo "Deploying to prod!"
 
-  - label: ":cook: Bake time in Prod"
+  - label: ":alarm_clock: Bake time in Prod"
     branches: "pay2release"
     command: sleep 1m
 
@@ -85,3 +85,9 @@ steps:
   - label: ":newrelic: Check the metric"
     branches: "pay2release"
     command: echo "Check metric"
+
+  - block: ":fire_extinguisher: Trigger prod rollback"
+    branches: "pay2release"
+
+  - label: ":skull_and_crossbones: Prod rollback"
+    command: echo "Prod rollback!"
