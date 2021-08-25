@@ -33,62 +33,61 @@ steps:
     command: echo "Deploying to stg!"
 
   - block: ":rocket: Release to canary"
-    branches: "pay2release"
+    if: build.tag =~ /^v\//
 
   - input: ":jira: Release ticket"
-    branches: "pay2release"
+    if: build.tag =~ /^v\//
     fields:
       - text: "Jira ticket"
         key: "jira-ticket"
 
   - label: ":argocd: Deploying to canary"
-    branches: "pay2release"
+    if: build.tag =~ /^v\//
     command: echo "Deploying to canary!"
 
   - wait: ~
     continue_on_failure: false
 
   - label: ":partyparrot: Run Integration test"
-    branches: "pay2release"
+    if: build.tag =~ /^v\//
     command: echo "Run test!"
 
   - label: ":alarm_clock: Bake time in Canary"
-    branches: "pay2release"
+    if: build.tag =~ /^v\//
     command: sleep 1m
 
   - wait
 
   - label: ":newrelic: Check the metric"
-    branches: "pay2release"
+    if: build.tag =~ /^v\//
     command: echo "Check metric"
 
   - block: ":rocket: Release to Prod"
-    branches: "pay2release"
-    branches: "pay2release"
+    if: build.tag =~ /^v\//
 
   - input: ":jira: Release ticket"
-    branches: "pay2release"
+    if: build.tag =~ /^v\//
     fields:
       - text: "Jira ticket"
         key: "jira-ticket"
 
   - label: ":argocd: Deploying to Prod"
-    branches: "pay2release"
+    if: build.tag =~ /^v\//
     command: echo "Deploying to prod!"
 
   - label: ":alarm_clock: Bake time in Prod"
-    branches: "pay2release"
+    if: build.tag =~ /^v\//
     command: sleep 1m
 
   - wait
 
   - label: ":newrelic: Check the metric"
-    branches: "pay2release"
+    if: build.tag =~ /^v\//
     command: echo "Check metric"
 
   - block: ":fire_extinguisher: Trigger prod rollback"
-    branches: "pay2release"
+    if: build.tag =~ /^v\//
 
   - label: ":skull_and_crossbones: Prod rollback"
-    branches: "pay2release"
+    if: build.tag =~ /^v\//
     command: echo "Prod rollback!"
